@@ -7,8 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
-    .setTitle('Sisnato app')
-    .setDescription('Documentação da API Sisnato app')
+    .setTitle('Sisnato Direto')
+    .setDescription('Documentação da API Sisnato Direto')
     .setVersion('1.0')
     .addServer(`http://localhost:${process.env.PORT ?? 3000}`, 'Servidor Local')
     .addBearerAuth()

@@ -1,12 +1,12 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreatePixDto } from './dto/create-pix.dto';
-import EfiPay from 'sdk-typescript-apis-efi';
 import { ErrorPixType } from './entities/pix.error.type';
+import EfiPay from 'sdk-node-apis-efi';
 
 const apicredentials = {
   // PRODUÇÃO = false
   // HOMOLOGAÇÃO: true,
-  sandbox: true,
+  sandbox: false,
   client_id: process.env.CLIENT_ID,
   client_secret: process.env.CLIENT_SECRET,
   certificate: './utils/producao-449449-Cert21042023.p12',
@@ -32,6 +32,7 @@ export class PixService {
       };
 
       const efipay = new EfiPay(apicredentials);
+      console.log('🚀 ~ PixService ~ create ~ efipay:', efipay);
       const PixPaymentCreate = await efipay.pixCreateImmediateCharge([], body);
       return PixPaymentCreate;
     } catch (error) {
