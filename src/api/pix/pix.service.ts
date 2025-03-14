@@ -53,7 +53,6 @@ export class PixService {
         ...PixPaymentCreate,
         ...QrCode,
       };
-      console.log('🚀 ~ PixService ~ create ~ dataPix:', dataPix);
       return dataPix;
     } catch (error) {
       console.log('🚀 ~ PixService ~ create ~ error:', error);
@@ -66,25 +65,25 @@ export class PixService {
   }
 
   async QrCodeEfi(id: string) {
+    // const clientId = process.env.CLIENT_ID;
+    // const clientSecret = process.env.CLIENT_SECRET;
+    // const certUser = process.env.EFI_PIX_CERT_PATH;
+
+    const clientId = process.env.CLIENT_ID_SANDBOX;
+    const clientSecret = process.env.CLIENT_SECRET_SANDBOX;
+    const certUser = process.env.CERT_USER_SANDBOX;
+
+    const rota = path.join(process.cwd(), certUser);
+
+    const Option = {
+      sandbox: true,
+      client_id: clientId,
+      client_secret: clientSecret,
+      certificate: rota,
+      cert_base64: false,
+    };
+
     try {
-      // const clientId = process.env.CLIENT_ID;
-      // const clientSecret = process.env.CLIENT_SECRET;
-      // const certUser = process.env.EFI_PIX_CERT_PATH;
-
-      const clientId = process.env.CLIENT_ID_SANDBOX;
-      const clientSecret = process.env.CLIENT_SECRET_SANDBOX;
-      const certUser = process.env.CERT_USER_SANDBOX;
-
-      const rota = path.join(process.cwd(), certUser);
-
-      const Option = {
-        sandbox: true,
-        client_id: clientId,
-        client_secret: clientSecret,
-        certificate: rota,
-        cert_base64: false,
-      };
-
       const params: any = {
         id: id,
       };
@@ -128,8 +127,6 @@ export class PixService {
 
       // O método pixDetailCharge indica os campos que devem ser enviados e que serão retornados
       const result = await efipay.pixDetailCharge(params);
-      console.log('🚀 ~ PixService ~ PixPaymentStatus ~ result:', result);
-
       return result;
     } catch (error) {
       console.log('🚀 ~ PixService ~ QrCode ~ error:', error);
