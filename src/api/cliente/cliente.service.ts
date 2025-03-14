@@ -11,7 +11,7 @@ export class ClienteService {
   constructor(private readonly prismaService: PrismaService) {}
   async create(createClienteDto: CreateClienteDto) {
     try {
-      const Exist = this.prismaService.nato_direto_clientes.findUnique({
+      const Exist = await this.prismaService.nato_direto_clientes.findUnique({
         where: {
           cpf: createClienteDto.cpf,
         },
