@@ -11,6 +11,7 @@ async function bootstrap() {
     .setDescription('Documentação da API Sisnato Direto')
     .setVersion('1.0')
     .addServer(`http://localhost:${process.env.PORT ?? 3000}`, 'Servidor Local')
+    .addServer('https://apinatodireto.redebrasilrp.com.br', 'Servidor Master')
     .addBearerAuth()
     .build();
 
