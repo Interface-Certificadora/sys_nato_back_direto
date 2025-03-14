@@ -4487,14 +4487,6 @@ sdk-node-apis-efi@^1.2.17:
     axios "^1.2.2"
     randomstring "^1.2.2"
 
-sdk-typescript-apis-efi@^1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/sdk-typescript-apis-efi/-/sdk-typescript-apis-efi-1.2.6.tgz#871bcff3bbcceb73c7e2d17e0b157fb61a18be56"
-  integrity sha512-JWDm435B8tpqLARd0f+Pu0wcvBU4q/g34eQQZuaIuwHDyjIN8klu0GBo95dcTQAR4PKxm0L/YAo60iOPnS8LyQ==
-  dependencies:
-    axios "^1.2.2"
-    randomstring "^1.2.2"
-
 semver@^6.3.0, semver@^6.3.1:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"

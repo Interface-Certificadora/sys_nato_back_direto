@@ -1,20 +1,50 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ClienteService } from './cliente.service';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
+import { ApiResponse } from '@nestjs/swagger';
+import { ErrorClienteType } from './entities/cliente.error.entity';
 
 @Controller('cliente')
 export class ClienteController {
   constructor(private readonly clienteService: ClienteService) {}
 
   @Post()
-  create(@Body() createClienteDto: CreateClienteDto) {
-    return this.clienteService.create(createClienteDto);
+  @ApiResponse({
+    status: 201,
+    description: 'Cliente criado com sucesso',
+    type: CreateClienteDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro ao criar cliente',
+    type: ErrorClienteType,
+  })
+  async create(@Body() createClienteDto: CreateClienteDto) {
+    return await this.clienteService.create(createClienteDto);
   }
 
   @Get()
-  findAll() {
-    return this.clienteService.findAll();
+  @ApiResponse({
+    status: 200,
+    description: 'Clientes encontrados com sucesso',
+    type: [CreateClienteDto],
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Erro ao buscar clientes',
+    type: ErrorClienteType,
+  })
+  async findAll() {
+    return await this.clienteService.findAll();
   }
 
   @Get(':id')

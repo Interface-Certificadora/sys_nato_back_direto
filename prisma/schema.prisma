@@ -289,6 +289,7 @@ model fcweb {
   price_cert          price_cert[]
 
   @@index([id], map: "id")
+   clientes nato_direto_clientes[]  
 }
 
 model leads {
@@ -395,6 +396,8 @@ model nato_empreendimento {
   nato_empresas nato_empresas? @relation(fields: [construtora], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "nato_empreendimento_nato_empresas_FK")
 
   @@index([construtora], map: "nato_empreendimento_nato_empresas_FK")
+
+  clientes  nato_direto_clientes[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -416,6 +419,8 @@ model nato_empresas {
   status              Boolean               @default(true)
   valor_cert          Float?                @db.Float
   nato_empreendimento nato_empreendimento[]
+
+  clientes  nato_direto_clientes[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -551,6 +556,8 @@ model nato_user {
   sms_relat      Boolean?      @default(false)
   termos         Boolean?      @default(false)
   nato_alerta    nato_alerta[]
+
+  clientes  nato_direto_clientes[]
 }
 
 model notanfe {
@@ -831,3 +838,68 @@ model voucher {
   id_fcw       String   @db.VarChar(150)
   dt_aprovacao DateTime @db.Date
 }
+
+model nato_direto_clientes {
+  id                Int       @id @default(autoincrement())
+  nome              String    @db.VarChar(100)
+  cpf               String    @unique @db.VarChar(100)
+  email             String    @db.VarChar(100)
+  dt_solicitacao    DateTime  @db.Date
+  corretor          Int?
+  construtora       Int?
+  telefone          String?   @db.VarChar(100)
+  dt_nascimento     DateTime? @db.Date
+  ass_doc           String?   @db.Text
+  link_doc          String?   @db.Text
+  id_fcw            Int?
+  obs               String?   @db.LongText
+  alert             String?   @db.VarChar(100)
+  empreedimento     Int?
+  cnh               String?   @db.VarChar(100)
+  ativo             Boolean   @default(true)
+  uploadCnh         String?   @db.LongText
+  relacionamento    String?   @db.LongText
+  createdAt         DateTime  @default(now()) @db.DateTime(0)
+  updatedAt         DateTime? @db.DateTime(0)
+  telefone2         String?   @db.VarChar(100)
+  uploadRg          String?   @db.LongText
+  rela_quest        Boolean?  @default(false)
+  voucher           String?   @db.VarChar(100)
+  link_planilha     String?   @db.Text
+  financeiro        Int?
+  distrato          Boolean?  @default(false)
+  logDelete         String?   @db.LongText
+  distrato_dt       DateTime? @db.DateTime(0)
+  status_aprovacao  Boolean?  @default(false)
+  distrato_id       Int?
+  Andamento         String?   @db.VarChar(100)
+  dt_aprovacao      DateTime? @db.Date
+  type_validacao    String?   @db.VarChar(100)
+  dt_agendamento    DateTime? @db.Date
+  hr_agendamento    DateTime? @db.Time(0)
+  mult_link         String?   @db.LongText
+  mult_ass_doc      String?   @db.LongText
+  hr_aprovacao      DateTime? @db.Time(0)
+  status_pgto       String?   @db.VarChar(100)
+  valorcd           Float?    @db.Float
+  situacao_pg       Int?      @default(0) @db.TinyInt
+  freqSms           Int?      @default(0)
+  docSuspenso       String?   @db.VarChar(100)
+  alertanow         Boolean?  @default(false)
+  dt_criacao_now    DateTime? @db.DateTime(0)
+  statusAtendimento Boolean   @default(false)
+  pause             Boolean?  @default(false)
+
+  // Adicionando corretamente as relações
+  fcweb             fcweb?               @relation(fields: [id_fcw], references: [id], onDelete: SetNull)
+  corretorUser      nato_user?           @relation(fields: [corretor], references: [id], onDelete: SetNull)
+  construtoraEmp    nato_empresas?       @relation(fields: [construtora], references: [id], onDelete: SetNull)
+  empreendimentoRel nato_empreendimento? @relation(fields: [empreedimento], references: [id], onDelete: SetNull)
+
+  @@index([id_fcw], map: "idx_id_fcw")
+  @@index([construtora], map: "idx_construtora")
+  @@index([corretor], map: "idx_corretor")
+  @@index([empreedimento], map: "idx_empreedimento")
+}
+
+
