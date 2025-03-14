@@ -92,11 +92,50 @@ export class ClienteService {
     }
   }
 
-  update(id: number, updateClienteDto: UpdateClienteDto) {
-    return `This action updates a #${id} cliente`;
+  async update(id: number, updateClienteDto: UpdateClienteDto) {
+    try {
+      const request = await this.prismaService.nato_direto_clientes.update({
+        where: {
+          id: id,
+        },
+        data: updateClienteDto,
+      });
+      if (!request) {
+        const retorno: ErrorClienteType = {
+          message: 'Erro ao atualizar Cliente',
+        };
+        throw new HttpException(retorno, 400);
+      }
+      return plainToClass(Cliente, request);
+    } catch (error) {
+      console.log(error);
+      const retorno: ErrorClienteType = {
+        message: error.message ? error.message : 'ERRO DESCONHECIDO',
+      };
+      throw new HttpException(retorno, 400);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cliente`;
+  async remove(id: number) {
+    try {
+      const request = await this.prismaService.nato_direto_clientes.delete({
+        where: {
+          id: id,
+        },
+      });
+      if (!request) {
+        const retorno: ErrorClienteType = {
+          message: 'Erro ao deletar Cliente',
+        };
+        throw new HttpException(retorno, 400);
+      }
+      return plainToClass(Cliente, request);
+    } catch (error) {
+      console.log(error);
+      const retorno: ErrorClienteType = {
+        message: error.message ? error.message : 'ERRO DESCONHECIDO',
+      };
+      throw new HttpException(retorno, 400);
+    }
   }
 }
