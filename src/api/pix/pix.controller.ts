@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Param, Get } from '@nestjs/common';
 import { PixService } from './pix.service';
 import { CreatePixDto } from './dto/create-pix.dto';
 import { ApiResponse } from '@nestjs/swagger';
@@ -22,5 +22,20 @@ export class PixController {
   })
   create(@Body() createPixDto: CreatePixDto) {
     return this.pixService.create(createPixDto);
+  }
+
+  @Get('verifique/:id')
+  @ApiResponse({
+    status: 201,
+    description: 'O pix foi criado com sucesso',
+    type: Pix,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'O pix não foi criado',
+    type: ErrorPixType,
+  })
+  verifique(@Param('id') id: string) {
+    return this.pixService.PixPaymentStatus(id);
   }
 }
