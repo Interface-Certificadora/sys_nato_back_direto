@@ -58,7 +58,9 @@ export class PixService {
       console.log('🚀 ~ PixService ~ create ~ error:', error);
       const retorno: ErrorPixType = {
         message:
-          error.response?.data?.message || error.message || 'Erro Desconhecido',
+          error.response?.data?.message ||
+          error.mensagem ||
+          'Erro Desconhecido',
       };
       throw new HttpException(retorno, 500);
     }
