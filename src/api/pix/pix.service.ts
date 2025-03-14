@@ -35,6 +35,9 @@ export class PixService {
         devedor: { cpf, nome },
         valor: { original: valor },
         chave: process.env.CHAVE_PIX,
+        //passar url de retorno
+        //urlRetorno: 'https://www.sisnato.com.br',
+        urlRetorno: 'https://www.sisnato.com.br/pix',
       };
 
       const efipay = new EfiPay(Option);
