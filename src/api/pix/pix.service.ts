@@ -1,8 +1,8 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreatePixDto } from './dto/create-pix.dto';
 import { ErrorPixType } from './entities/pix.error.type';
-import EfiPay from 'sdk-typescript-apis-efi';
 import path from 'path';
+import EfiPay from 'sdk-typescript-apis-efi';
 
 @Injectable()
 export class PixService {
@@ -35,6 +35,9 @@ export class PixService {
         devedor: { cpf, nome },
         valor: { original: valor },
         chave: process.env.CHAVE_PIX,
+        //passar url de retorno
+        //urlRetorno: 'https://www.sisnato.com.br',
+        urlRetorno: 'https://www.sisnato.com.br/pix',
       };
 
       const efipay = new EfiPay(Option);
