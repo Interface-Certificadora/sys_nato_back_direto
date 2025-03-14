@@ -51,6 +51,8 @@ pids
 *.pid
 *.seed
 *.pid.lock
+yarn.lock
+package-lock.json
 
 certificate
 
