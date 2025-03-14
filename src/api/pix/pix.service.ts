@@ -1,8 +1,8 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreatePixDto } from './dto/create-pix.dto';
 import { ErrorPixType } from './entities/pix.error.type';
-import EfiPay from 'sdk-typescript-apis-efi';
 import path from 'path';
+import EfiPay from 'sdk-typescript-apis-efi';
 
 @Injectable()
 export class PixService {
