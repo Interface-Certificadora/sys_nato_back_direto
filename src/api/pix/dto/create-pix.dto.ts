@@ -4,7 +4,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class CreatePixDto {
   @ApiProperty({
     description: 'cpf',
-    example: '123.456.789-00',
+    example: '12345678900',
     type: String,
   })
   @IsNotEmpty({
