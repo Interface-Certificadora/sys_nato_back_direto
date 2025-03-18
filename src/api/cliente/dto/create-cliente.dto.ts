@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateClienteDto {
   @ApiProperty({
@@ -75,4 +81,62 @@ export class CreateClienteDto {
   })
   @IsNumber()
   financeiro: number;
+
+  @ApiProperty({
+    description: 'Pix Copia e Cola Gerado',
+    example:
+      '20:50:akjshdjkwabndjklawhjdjlanLJKHKJABNWJKLDHjdbnlamhjklhklajnhdu',
+    type: String,
+  })
+  @IsOptional()
+  @IsString({
+    message: 'pix deve ser uma string',
+  })
+  pixCopiaECola: string;
+
+  @ApiProperty({
+    description: 'QrCode Pix Gerado',
+    example: 'abcjkeyfdjkwabndjkcnkvbdmhxgbdfnbcKLDHjdbnlamhjklhklajnhdu',
+    type: String,
+  })
+  @IsOptional()
+  @IsString({
+    message: 'qrcode deve ser uma string',
+  })
+  qrcode: string;
+
+  @ApiProperty({
+    description: 'txid do Pix gerado',
+    example: 'ixHkalsIamJM',
+    type: String,
+  })
+  @IsNotEmpty({
+    message: 'id nao pode ser vazio',
+  })
+  @IsString({
+    message: 'id deve ser uma string',
+  })
+  txid: string;
+
+  @ApiProperty({
+    description: 'Valor do Pix gerado',
+    example: 100,
+    type: Number,
+  })
+  @IsNotEmpty({
+    message: 'id nao pode ser vazio',
+  })
+  @IsNumber()
+  valor: number;
+
+  @ApiProperty({
+    description: 'ImagemQrCode do Pix gerado',
+    example: 'abcjkeyfdjkwabndjkcnkvbdmhxgbdfnbcKLDHjdbnlamhjklhklajnhdu',
+    type: String,
+  })
+  @IsOptional()
+  @IsString({
+    message: 'qrcode deve ser uma string',
+  })
+  imagemQrCode: string;
 }
