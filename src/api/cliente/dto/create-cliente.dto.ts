@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateClienteDto {
   @ApiProperty({
@@ -64,4 +64,15 @@ export class CreateClienteDto {
     message: 'dt_nascimento deve ser uma string',
   })
   dt_nascimento: string;
+
+  @ApiProperty({
+    description: 'Financeiro',
+    example: 1,
+    type: Number,
+  })
+  @IsNotEmpty({
+    message: 'financeiro nao pode ser vazio',
+  })
+  @IsNumber()
+  financeiro: number;
 }
