@@ -848,13 +848,22 @@ model nato_direto_clientes {
   cpf               String    @unique @db.VarChar(100)
   email             String    @db.VarChar(100)
   dt_solicitacao    DateTime  @db.Date
-  corretor          Int?
-  construtora       Int?
   telefone          String?   @db.VarChar(100)
   dt_nascimento     DateTime? @db.Date
+  id_fcw            Int?
+  financeiro        Int?
+  pixCopiaECola     String?   @db.Text
+  qrcode            String?   @db.Text
+  txid              String?   @db.VarChar(100)
+  valor             Float?    @db.Float
+  imagemQrcode      String?   @db.Text
+  createdAt         DateTime  @default(now()) @db.DateTime(0)
+  updatedAt         DateTime? @db.DateTime(0)
+  
+  corretor          Int?
+  construtora       Int?
   ass_doc           String?   @db.Text
   link_doc          String?   @db.Text
-  id_fcw            Int?
   obs               String?   @db.LongText
   alert             String?   @db.VarChar(100)
   empreedimento     Int?
@@ -862,14 +871,11 @@ model nato_direto_clientes {
   ativo             Boolean   @default(true)
   uploadCnh         String?   @db.LongText
   relacionamento    String?   @db.LongText
-  createdAt         DateTime  @default(now()) @db.DateTime(0)
-  updatedAt         DateTime? @db.DateTime(0)
   telefone2         String?   @db.VarChar(100)
   uploadRg          String?   @db.LongText
   rela_quest        Boolean?  @default(false)
   voucher           String?   @db.VarChar(100)
   link_planilha     String?   @db.Text
-  financeiro        Int?
   distrato          Boolean?  @default(false)
   logDelete         String?   @db.LongText
   distrato_dt       DateTime? @db.DateTime(0)
@@ -893,13 +899,12 @@ model nato_direto_clientes {
   statusAtendimento Boolean   @default(false)
   pause             Boolean?  @default(false)
 
-  // Adicionando corretamente as relações
+
   fcweb             fcweb?               @relation(fields: [id_fcw], references: [id], onDelete: SetNull)
   corretorUser      nato_user?           @relation(fields: [corretor], references: [id], onDelete: SetNull)
   construtoraEmp    nato_empresas?       @relation(fields: [construtora], references: [id], onDelete: SetNull)
   empreendimentoRel nato_empreendimento? @relation(fields: [empreedimento], references: [id], onDelete: SetNull)
   financeiroid      nato_financeiro?     @relation(fields: [financeiro], references: [id], onDelete: SetNull)
-  
 
   @@index([id_fcw], map: "idx_id_fcw")
   @@index([construtora], map: "idx_construtora")
