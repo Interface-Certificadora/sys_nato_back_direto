@@ -45,4 +45,15 @@ export class UpdateClienteDto {
     message: 'dt_nascimento deve ser uma string',
   })
   dt_nascimento?: string;
+
+  @ApiProperty({
+    description: 'Status Pgto Do cliente',
+    example: 'PAGO',
+    type: String,
+  })
+  @IsOptional()
+  @IsString({
+    message: 'status_pgto deve ser uma string',
+  })
+  status_pgto?: string;
 }
