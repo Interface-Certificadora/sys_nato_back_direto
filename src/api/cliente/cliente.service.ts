@@ -21,11 +21,7 @@ export class ClienteService {
       }
       const req = await this.prismaService.nato_direto_clientes.create({
         data: {
-          nome: createClienteDto.nome,
-          cpf: createClienteDto.cpf,
-          telefone: createClienteDto.telefone,
-          email: createClienteDto.email,
-          dt_nascimento: new Date(createClienteDto.dt_nascimento),
+          ...createClienteDto,
           dt_solicitacao: new Date(),
         },
       });
