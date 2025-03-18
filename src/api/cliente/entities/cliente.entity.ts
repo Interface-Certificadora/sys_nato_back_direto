@@ -1,6 +1,9 @@
 import { ApiResponseProperty } from '@nestjs/swagger';
 
 export class Cliente {
+  @ApiResponseProperty({ type: Number })
+  id: number;
+
   @ApiResponseProperty({ type: String })
   nome: string;
 
@@ -15,6 +18,27 @@ export class Cliente {
 
   @ApiResponseProperty({ type: Date })
   dt_nascimento: Date;
+
+  @ApiResponseProperty({ type: Date })
+  createdAt: Date;
+
+  @ApiResponseProperty({ type: Date })
+  updatedAt: Date;
+
+  @ApiResponseProperty({ type: String })
+  imagemQrcode: string;
+
+  @ApiResponseProperty({ type: String })
+  pixCopiaECola: string;
+
+  @ApiResponseProperty({ type: String })
+  qrcode: string;
+
+  @ApiResponseProperty({ type: String })
+  txid: string;
+
+  @ApiResponseProperty({ type: Number })
+  valor: number;
 
   constructor(partial: Partial<Cliente>) {
     Object.assign(this, partial);
