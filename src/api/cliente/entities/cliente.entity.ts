@@ -40,6 +40,9 @@ export class Cliente {
   @ApiResponseProperty({ type: Number })
   valor: number;
 
+  @ApiResponseProperty({ type: String })
+  status_pgto: string;
+
   constructor(partial: Partial<Cliente>) {
     Object.assign(this, partial);
   }
