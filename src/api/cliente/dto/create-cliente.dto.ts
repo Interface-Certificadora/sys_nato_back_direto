@@ -138,5 +138,5 @@ export class CreateClienteDto {
   @IsString({
     message: 'qrcode deve ser uma string',
   })
-  imagemQrCode: string;
+  imagemQrcode: string;
 }
