@@ -437,6 +437,9 @@ model nato_financeiro {
   updatedAt     DateTime? @db.DateTime(0)
   obs           String?   @db.Text
   fantasia      String?   @db.VarChar(100)
+
+    @@index([id], map: "id")
+   financeiro nato_direto_clientes[]  
 }
 
 model nato_relatorio_financeiro {
@@ -895,6 +898,8 @@ model nato_direto_clientes {
   corretorUser      nato_user?           @relation(fields: [corretor], references: [id], onDelete: SetNull)
   construtoraEmp    nato_empresas?       @relation(fields: [construtora], references: [id], onDelete: SetNull)
   empreendimentoRel nato_empreendimento? @relation(fields: [empreedimento], references: [id], onDelete: SetNull)
+  financeiroid      nato_financeiro?     @relation(fields: [financeiro], references: [id], onDelete: SetNull)
+  
 
   @@index([id_fcw], map: "idx_id_fcw")
   @@index([construtora], map: "idx_construtora")

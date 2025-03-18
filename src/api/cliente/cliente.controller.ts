@@ -22,7 +22,7 @@ export class ClienteController {
   @ApiResponse({
     status: 201,
     description: 'Cliente criado com sucesso',
-    type: CreateClienteDto,
+    type: Cliente,
   })
   @ApiResponse({
     status: 400,
@@ -37,7 +37,7 @@ export class ClienteController {
   @ApiResponse({
     status: 200,
     description: 'Clientes encontrados com sucesso',
-    type: [CreateClienteDto],
+    type: [Cliente],
   })
   @ApiResponse({
     status: 400,
