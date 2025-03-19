@@ -11,15 +11,16 @@ export class ClienteService {
   constructor(private readonly prismaService: PrismaService) {}
   async create(createClienteDto: CreateClienteDto) {
     try {
-      const Exist = await this.prismaService.nato_direto_clientes.findUnique({
-        where: {
-          cpf: createClienteDto.cpf,
-        },
-      });
+      const Exist =
+        await this.prismaService.nato_direto_solicitacoes.findUnique({
+          where: {
+            cpf: createClienteDto.cpf,
+          },
+        });
       if (Exist) {
         return plainToClass(Cliente, Exist);
       }
-      const req = await this.prismaService.nato_direto_clientes.create({
+      const req = await this.prismaService.nato_direto_solicitacoes.create({
         data: {
           ...createClienteDto,
           dt_nascimento: new Date(createClienteDto.dt_nascimento),
@@ -44,11 +45,12 @@ export class ClienteService {
 
   async findAll() {
     try {
-      const request = await this.prismaService.nato_direto_clientes.findMany({
-        orderBy: {
-          dt_solicitacao: 'desc',
-        },
-      });
+      const request =
+        await this.prismaService.nato_direto_solicitacoes.findMany({
+          orderBy: {
+            dt_solicitacao: 'desc',
+          },
+        });
       if (!request) {
         const retorno: ErrorClienteType = {
           message: 'Erro ao buscar Clientes',
@@ -68,11 +70,12 @@ export class ClienteService {
 
   async findOne(id: number) {
     try {
-      const request = await this.prismaService.nato_direto_clientes.findUnique({
-        where: {
-          id: id,
-        },
-      });
+      const request =
+        await this.prismaService.nato_direto_solicitacoes.findUnique({
+          where: {
+            id: id,
+          },
+        });
       if (!request) {
         const retorno: ErrorClienteType = {
           message: 'Erro ao buscar Cliente',
@@ -91,7 +94,7 @@ export class ClienteService {
 
   async update(id: number, updateClienteDto: UpdateClienteDto) {
     try {
-      const request = await this.prismaService.nato_direto_clientes.update({
+      const request = await this.prismaService.nato_direto_solicitacoes.update({
         where: {
           id: id,
         },
@@ -115,7 +118,7 @@ export class ClienteService {
 
   async remove(id: number) {
     try {
-      const request = await this.prismaService.nato_direto_clientes.delete({
+      const request = await this.prismaService.nato_direto_solicitacoes.delete({
         where: {
           id: id,
         },
